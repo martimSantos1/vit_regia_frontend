@@ -58,3 +58,11 @@ nav a:hover{
   background-color: var(--hover-color);
   border-radius: 200px;
 }
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.login-button{
+  cursor: pointer;
+}
