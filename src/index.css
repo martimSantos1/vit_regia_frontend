@@ -4,7 +4,7 @@
   --base-variant: #e8e9ed;
   --text-color: #111528;
   --secondary-text: #232738;
-  --primary-color: #535f84;
+  --primary-color: #a2b8f8;
   --accent-color: #0071ff;
   --navbar-color: #1d222f;
 }
@@ -17,14 +17,14 @@
 
 html{
   font-family: Poppins, 'Segoe UI', sans-serif;
-  color: var(--text-color);
   scroll-behavior: smooth;
 }
 
 body{
+  font-family: Poppins, 'Segoe UI', sans-serif;
   min-height: 100vh;
   min-height: 100dvh;
-  background-color: var(--primary-color);
+  background-color: var(--base-color);
 }
 
 main{
@@ -37,4 +37,36 @@ main p{
 
 .content{
   padding-top: 4em;
+}
+
+nav{
+  position: fixed;
+  width: 100%;
+  background-color: var(--navbar-color);
+  border-bottom: 1px solid var(--hover-color);
+  display: flex;
+  z-index: 1000;
+}
+
+nav ul{
+  list-style: none;
+  display: flex;
+  width: 100%;
+}
+
+
+.nav-right{
+  justify-content: end;
+}
+
+nav li a{ 
+  display: flex;
+  text-decoration: none;
+  color: var(--base-color);
+  padding: 1em 2em;
+  align-items: center;
+}
+
+nav a:hover{
+  background-color: var(--hover-color);
 }

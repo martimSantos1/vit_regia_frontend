@@ -1,25 +1,9 @@
 import { Outlet, Link } from "react-router";
-import { useState, useEffect } from "react";
-import Modal from "react-modal";
-import Login from "./components/login"; // Certifique-se de que o caminho está correto
-import "./styles/layout.css";
-
-Modal.setAppElement('#root');
+import { BsGithub } from "react-icons/bs";
+import { Footer } from "flowbite-react";
+import "./index.css";
 
 const Layout = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const openModal = () => setModalIsOpen(true);
-  const closeModal = () => setModalIsOpen(false);
-
-  useEffect(() => {
-    if (modalIsOpen) {
-      document.body.classList.add('no-scroll');
-    } else {
-      document.body.classList.remove('no-scroll');
-    }
-  }, [modalIsOpen]);
-
   return (
     <>
       <nav>
@@ -34,24 +18,56 @@ const Layout = () => {
             <Link to="/services">Services</Link>
           </li>
         </ul>
-
         <ul className="nav-right">
-          <li className="login-button">
-            <a onClick={openModal}>Login</a>
+          <li>
+            <Link to="/login">Login</Link>
           </li>
         </ul>
       </nav>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Login Modal"
-      >
-        <Login />
-      </Modal>
-
       <div className="content">
         <Outlet />
+        <Footer container>
+          <div>
+              <div>
+                <div>
+                  <Footer.Title title="Projeto" />
+                  <Footer.LinkGroup col>
+                    <Footer.Link href="#">Sobre o projeto</Footer.Link>
+                    <Footer.Link href="#">Sobre o Gecad</Footer.Link>
+                  </Footer.LinkGroup>
+                </div>
+                <div>
+                  <Footer.Title title="Ajuda" />
+                  <Footer.LinkGroup col>
+                    <Footer.Link href="#">FAQs</Footer.Link>
+                    <Footer.Link href="#">Contacte-nos</Footer.Link>
+                  </Footer.LinkGroup>
+                </div>
+                <div>
+                  <Footer.Title title="Legal" />
+                  <Footer.LinkGroup col>
+                    <Footer.Link href="#">Política de Privacidade</Footer.Link>
+                    <Footer.Link href="#">Licença</Footer.Link>
+                    <Footer.Link href="#">Termos &amp; Condições</Footer.Link>
+                  </Footer.LinkGroup>
+                </div>
+                <div>
+                  <Footer.Title title="Download" />
+                  <Footer.LinkGroup col>
+                    <Footer.Link href="#">iOS</Footer.Link>
+                    <Footer.Link href="#">Android</Footer.Link>
+                  </Footer.LinkGroup>
+                </div>
+              </div>
+              <div>
+                <Footer.Copyright href="#" by="Gecad™" year={2025} />
+                <div>
+                  <Footer.Icon href="#" icon={BsGithub} />
+                </div>
+              </div>
+            </div>
+        </Footer>
       </div>
     </>
   )
