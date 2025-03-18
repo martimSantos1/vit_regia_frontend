@@ -9,7 +9,7 @@ import {
   Button
 } from "@mui/material";
 import { useState } from "react";
-import "./../index.css";
+import "./../components/styles/login.css";
 
 function Login(){
   const [response, setResponse] = useState<{ message?: string; error?: string } | null>(null);
@@ -45,8 +45,7 @@ function Login(){
         <Avatar className="login-avatar" style={{ backgroundColor: "#1d222f"}}>
           <LockOutlined />
         </Avatar>
-        <Typography variant="h4"
-            sx={{ fontFamily: 'Poppins, Segoe UI, sans-serif', fontWeight: 'bold' }}>Login</Typography>
+        <Typography variant="h4">Login</Typography>
         <Box className="login-box">
           <TextField
             margin="normal"

@@ -28,45 +28,37 @@ const Layout = () => {
       <div className="content">
         <Outlet />
         <Footer container>
-          <div>
+          <div className="footer-container">
+            <div className="footer-main">
               <div>
-                <div>
-                  <Footer.Title title="Projeto" />
-                  <Footer.LinkGroup col>
-                    <Footer.Link href="#">Sobre o projeto</Footer.Link>
-                    <Footer.Link href="#">Sobre o Gecad</Footer.Link>
-                  </Footer.LinkGroup>
-                </div>
-                <div>
-                  <Footer.Title title="Ajuda" />
-                  <Footer.LinkGroup col>
-                    <Footer.Link href="#">FAQs</Footer.Link>
-                    <Footer.Link href="#">Contacte-nos</Footer.Link>
-                  </Footer.LinkGroup>
-                </div>
-                <div>
-                  <Footer.Title title="Legal" />
-                  <Footer.LinkGroup col>
-                    <Footer.Link href="#">Política de Privacidade</Footer.Link>
-                    <Footer.Link href="#">Licença</Footer.Link>
-                    <Footer.Link href="#">Termos &amp; Condições</Footer.Link>
-                  </Footer.LinkGroup>
-                </div>
-                <div>
-                  <Footer.Title title="Download" />
-                  <Footer.LinkGroup col>
-                    <Footer.Link href="#">iOS</Footer.Link>
-                    <Footer.Link href="#">Android</Footer.Link>
-                  </Footer.LinkGroup>
-                </div>
+                <Footer.Title title="Projeto" />
+                <Footer.Link href="#">Sobre o projeto</Footer.Link>
+                <Footer.Link href="#">Sobre o Gecad</Footer.Link>
               </div>
               <div>
-                <Footer.Copyright href="#" by="Gecad™" year={2025} />
-                <div>
-                  <Footer.Icon href="#" icon={BsGithub} />
-                </div>
+                <Footer.Title title="Ajuda" />
+                <Footer.Link href="#">FAQs</Footer.Link>
+                <Footer.Link href="#">Contacte-nos</Footer.Link>
+              </div>
+              <div>
+                <Footer.Title title="Legal" />
+                <Footer.Link href="#">Política de Privacidade</Footer.Link>
+                <Footer.Link href="#">Licença</Footer.Link>
+                <Footer.Link href="#">Termos &amp; Condições</Footer.Link>
+              </div>
+              <div>
+                <Footer.Title title="Download" />
+                <Footer.Link href="#">iOS</Footer.Link>
+                <Footer.Link href="#">Android</Footer.Link>
               </div>
             </div>
+            <div className="footer-bottom">
+              <Footer.Copyright href="#" by="Gecad™" year={2025} />
+              <div className="footer-icons">
+                <Footer.Icon href="#" icon={BsGithub} />
+              </div>
+            </div>
+          </div>
         </Footer>
       </div>
     </>

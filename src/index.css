@@ -3,7 +3,7 @@
   --base-color: white;
   --base-variant: #e8e9ed;
   --text-color: #111528;
-  --secondary-text: #232738;
+  --secondary-text: #444a69;
   --primary-color: #a2b8f8;
   --accent-color: #0071ff;
   --navbar-color: #1d222f;
@@ -28,7 +28,7 @@ body{
 }
 
 main{
-  padding: min(5em, 7%);
+  padding: min(50em, 7%);
 }
 
 main p{
@@ -54,7 +54,6 @@ nav ul{
   width: 100%;
 }
 
-
 .nav-right{
   justify-content: end;
 }
@@ -69,4 +68,74 @@ nav li a{
 
 nav a:hover{
   background-color: var(--hover-color);
+}
+
+footer {
+  background-color: var(--navbar-color);
+  color: var(--base-color);
+  padding: 0.5em 0;
+  text-align: center;
+}
+
+nav, footer {
+  font-family: Poppins, 'Segoe UI', sans-serif;
+}
+
+footer .footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer .footer-main {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+}
+
+footer .footer-main > div {
+  color: var(--secondary-text);
+  list-style: none;
+  flex: 1;
+  min-width: 100px;
+}
+
+footer .footer-title {
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+footer a {
+  color: var(--secondary-text); /* Change link color */
+  text-decoration: none; /* Remove underline */
+}
+
+nav li a:hover, footer a:hover {
+  color: var(--primary-color); /* Change link color on hover */
+  text-decoration: none; /* Ensure underline is removed on hover */
+}
+
+footer .footer-bottom {
+  color: var(--secondary-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 1em;
+}
+
+footer .footer-icons {
+  display: flex;
+  gap: 1em;
+}
+
+footer .footer-icons a {
+  color: var(--secondary-text);
+  font-size: 1.5em;
+}
+
+footer .footer-icons a:hover {
+  color: var(--primary-color);
 }
