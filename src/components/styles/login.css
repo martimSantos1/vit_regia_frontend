@@ -1,18 +1,23 @@
 .login-container {
-    margin-top: 20px;
-    margin-bottom: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    justify-content: center;
-    font-family: 'Poppins', 'Segoe UI', sans-serif;
+  margin-top: 20%;
+  margin-bottom: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
 }
 
 .login-container * {
-    font-family: inherit;
+  font-family: inherit !important;
+  font-weight: bold !important;
 }
 
-.login-container .MuiTypography-h4 {
-    font-weight: bold;
+.login-avatar {
+  background-color: #1d222f !important;
+}
+
+.login-button {
+  background-color: #1d222f !important;
 }

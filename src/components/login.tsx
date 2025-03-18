@@ -1,4 +1,4 @@
-import { LockOutlined } from "@mui/icons-material";
+import { LockOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Container,
   CssBaseline,
@@ -6,16 +6,27 @@ import {
   Avatar,
   Typography,
   TextField,
-  Button
+  Button,
+  IconButton,
+  InputAdornment
 } from "@mui/material";
 import { useState } from "react";
-import "./../components/styles/login.css";
+import "./styles/login.css";
 
 function Login(){
   const [response, setResponse] = useState<{ message?: string; error?: string } | null>(null);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
 
   const handleLogin = async () => {
     try {
@@ -42,7 +53,7 @@ function Login(){
     <Container maxWidth="xs">
       <CssBaseline />
       <Box className="login-container">
-        <Avatar className="login-avatar" style={{ backgroundColor: "#1d222f"}}>
+        <Avatar className="login-avatar">
           <LockOutlined />
         </Avatar>
         <Typography variant="h4">Login</Typography>
@@ -65,15 +76,28 @@ function Login(){
             id="password"
             name="password"
             label="Password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    className="toggle-visibility-button"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Button
             fullWidth
             variant="contained"
             className="login-button"
-            style={{ backgroundColor: "#1d222f"}}
             onClick={handleLogin}
           >
             Login
