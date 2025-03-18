@@ -2,11 +2,34 @@ import { Outlet, Link } from "react-router";
 import { BsGithub } from "react-icons/bs";
 import { Footer } from "flowbite-react";
 import "./index.css";
+import { useState } from "react";
 
 const Layout = () => {
+  const [isSidePanelOpen, setSidePanelOpen] = useState(false);
+
+  const toggleSidePanel = () => {
+    setSidePanelOpen(!isSidePanelOpen);
+    if (!isSidePanelOpen) {
+      document.documentElement.classList.add("no-scroll"); // Add no-scroll class to <html>
+      document.body.classList.add("no-scroll"); // Add no-scroll class to <body>
+    } else {
+      document.documentElement.classList.remove("no-scroll"); // Remove no-scroll class from <html>
+      document.body.classList.remove("no-scroll"); // Remove no-scroll class from <body>
+    }
+  };
+
+  const closeSidePanel = () => {
+    setSidePanelOpen(false);
+    document.documentElement.classList.remove("no-scroll"); // Ensure no-scroll class is removed from <html>
+    document.body.classList.remove("no-scroll"); // Ensure no-scroll class is removed from <body>
+  };
+
   return (
     <>
       <nav>
+        <button className="menu-toggle" onClick={toggleSidePanel}>
+          ☰
+        </button>
         <ul className="nav-left">
           <li>
             <Link to="/">Home</Link>
@@ -24,6 +47,29 @@ const Layout = () => {
           </li>
         </ul>
       </nav>
+
+      {/* Overlay */}
+      {isSidePanelOpen && <div className="overlay" onClick={closeSidePanel}></div>}
+
+      <div className={`sidepanel ${isSidePanelOpen ? "open" : ""}`}>
+        <button className="close-btn" onClick={closeSidePanel}>
+          &times;
+        </button>
+        <ul>
+          <li>
+            <Link to="/" onClick={closeSidePanel}>Home</Link>
+          </li>
+          <li>
+            <Link to="/about" onClick={closeSidePanel}>About</Link>
+          </li>
+          <li>
+            <Link to="/services" onClick={closeSidePanel}>Services</Link>
+          </li>
+          <li>
+            <Link to="/login" onClick={closeSidePanel}>Login</Link>
+          </li>
+        </ul>
+      </div>
 
       <div className="content-container">
         <Outlet />

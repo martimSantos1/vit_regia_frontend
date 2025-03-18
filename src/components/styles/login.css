@@ -1,11 +1,16 @@
 .login-container {
-  margin-top: 10%;
+  background-color: white;
+  margin:auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   justify-content: center;
   font-family: 'Poppins', 'Segoe UI', sans-serif;
+  border: 2px solid #ccc;
+  border-radius: 8%;
+  box-shadow: 1em 1em 0.8em rgba(0, 0, 0, 0.2);
+  padding: 20%;
 }
 
 .login-container * {

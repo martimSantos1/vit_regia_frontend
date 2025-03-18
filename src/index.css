@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap'); 
-:root{
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
+:root {
   --base-color: white;
   --base-variant: #e8e9ed;
   --text-color: #111528;
@@ -9,55 +10,63 @@
   --navbar-color: #1d222f;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html{
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+  /* Prevent horizontal scrolling */
+}
+
+html {
   font-family: Poppins, 'Segoe UI', sans-serif;
   scroll-behavior: smooth;
 }
 
-body{
+body {
   font-family: Poppins, 'Segoe UI', sans-serif;
   min-height: 100vh;
   min-height: 100dvh;
   background-color: var(--base-color);
+  overflow: hidden;
 }
 
-main{
+main {
   padding: min(50em, 7%);
 }
 
-main p{
+main p {
   margin-top: .35em;
 }
 
-.content-container{
+.content-container {
   padding-top: 4em;
   min-height: calc(100vh - 34px);
 }
 
-nav{
+nav {
   width: 100%;
   background-color: var(--navbar-color);
   border-bottom: 1px solid var(--hover-color);
   display: flex;
 }
 
-nav ul{
+nav ul {
   list-style: none;
   display: flex;
   width: 100%;
 }
 
-.nav-right{
+.nav-right {
   justify-content: end;
 }
 
-nav li a{ 
+nav li a {
   display: flex;
   text-decoration: none;
   color: var(--base-color);
@@ -65,24 +74,26 @@ nav li a{
   align-items: center;
 }
 
-nav a:hover{
+nav a:hover {
   background-color: var(--hover-color);
 }
 
-.footer--pin{
+.footer--pin {
   position: relative;
   left: 0;
   bottom: 0;
 }
 
 footer {
+  width: 100%;
   background-color: var(--navbar-color);
   color: var(--base-color);
   padding: 0.5em 0;
   text-align: center;
 }
 
-nav, footer {
+nav,
+footer {
   font-family: Poppins, 'Segoe UI', sans-serif;
 }
 
@@ -96,12 +107,19 @@ footer .footer-main {
   display: flex;
   width: 100%;
   max-width: 1000px;
+  flex-wrap: wrap;
+  /* Allow wrapping of footer sections */
+  justify-content: center;
+  /* Center content when wrapped */
 }
 
-footer .footer-main > div {
+footer .footer-main>div {
   color: var(--secondary-text);
   list-style: none;
-  flex: 1;
+  flex: 1 1 200px;
+  /* Allow sections to shrink and wrap */
+  text-align: center;
+  /* Center-align text for smaller screens */
   min-width: 100px;
 }
 
@@ -112,13 +130,18 @@ footer .footer-title {
 }
 
 footer a {
-  color: var(--secondary-text); /* Change link color */
-  text-decoration: none; /* Remove underline */
+  color: var(--secondary-text);
+  /* Change link color */
+  text-decoration: none;
+  /* Remove underline */
 }
 
-nav li a:hover, footer a:hover {
-  color: var(--primary-color); /* Change link color on hover */
-  text-decoration: none; /* Ensure underline is removed on hover */
+nav li a:hover,
+footer a:hover {
+  color: var(--primary-color);
+  /* Change link color on hover */
+  text-decoration: none;
+  /* Ensure underline is removed on hover */
 }
 
 footer .footer-bottom {
@@ -129,6 +152,12 @@ footer .footer-bottom {
   width: 100%;
   max-width: 500px;
   margin-top: 1em;
+  flex-direction: column;
+  /* Stack items vertically */
+  text-align: center;
+  /* Center-align text */
+  gap: 0.5em;
+  /* Add spacing between items */
 }
 
 footer .footer-icons {
@@ -143,4 +172,121 @@ footer .footer-icons a {
 
 footer .footer-icons a:hover {
   color: var(--primary-color);
+}
+
+/* Sidepanel styles */
+.sidepanel {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--navbar-color);
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+  z-index: 1000;
+}
+
+.sidepanel.open {
+  width: 50%;
+}
+
+.sidepanel .close-btn {
+  position: absolute;
+  top: 2%;
+  right: 12%;
+  font-size: 300%;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.sidepanel ul {
+  list-style: none; /* Ensure no bullets */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.sidepanel ul li {
+  padding: 1em 2em; /* Adjust padding for consistent spacing */
+  text-align: center;
+}
+
+.sidepanel ul li a {
+  font-family: Poppins, 'Segoe UI', sans-serif; /* Match font family */
+  font-size: 1.5em; /* Adjust font size */
+  color: var(--base-color); /* Match navbar link color */
+  text-decoration: none; /* Remove underline */
+  display: flex; /* Match navbar link display */
+  align-items: center; /* Center-align text */
+  justify-content: center; /* Center-align text */
+  background-color: transparent; /* Ensure no background by default */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.sidepanel ul li a:hover {
+  background-color: var(--hover-color); /* Match navbar hover background */
+  text-decoration: none; /* Ensure underline is removed on hover */
+}
+
+/* Menu toggle button */
+.menu-toggle {
+  font-size: 200%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+  color: white;
+  padding: 3%;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-left,
+  .nav-right {
+    display: none;
+  }
+
+  footer .footer-main {
+    flex-direction: column;
+    /* Stack footer sections vertically */
+    align-items: center;
+    /* Center-align sections */
+  }
+
+  footer .footer-main>div {
+    margin-bottom: -5.5em;
+    /* Add spacing between sections */
+  }
+
+  footer .footer-bottom {
+    flex-direction: column;
+    /* Ensure vertical stacking */
+    align-items: center;
+    /* Center-align items */
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  backdrop-filter: blur(5px); /* Blur effect */
+  z-index: 999; /* Ensure it appears above other elements */
+}
+
+.no-scroll {
+  overflow: hidden; /* Lock scrolling */
+  height: 100%; /* Prevent scrolling by fixing height */
 }
