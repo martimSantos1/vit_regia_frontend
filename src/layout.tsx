@@ -25,8 +25,11 @@ const Layout = () => {
         </ul>
       </nav>
 
-      <div className="content">
+      <div className="content-container">
         <Outlet />
+      </div>
+
+      <div className="footer--pin">
         <Footer container>
           <div className="footer-container">
             <div className="footer-main">
