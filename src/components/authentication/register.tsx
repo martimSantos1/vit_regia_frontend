@@ -11,13 +11,13 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { useState } from "react";
-import { login } from "../../services/auth-services";
 import "./authentication-style.css";
 
-function Login() {
+function Register() {
   const [response, setResponse] = useState<{ message?: string; error?: string } | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -28,10 +28,10 @@ function Login() {
     event.preventDefault();
   };
 
-  const handleLogin = async () => {
-    const data = await login(email, password); // Using the login function from auth-services.ts
-    setResponse(data);
-    console.log(response);
+  const handleRegister = async () => {
+    const data = JSON.stringify({ userName, email, password })
+    //setResponse(data);
+    console.log(data);
   };
 
   return (
@@ -41,14 +41,25 @@ function Login() {
         <Avatar className="login-avatar">
           <LockOutlined />
         </Avatar>
-        <Typography variant="h4">Login</Typography>
+        <Typography variant="h4">Registe-se</Typography>
         <Box className="login-box">
+        <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="userName"
+            label="Nome de usuário"
+            name="userName"
+            autoFocus
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
           <TextField
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Endereço de email"
             name="email"
             autoFocus
             value={email}
@@ -60,7 +71,7 @@ function Login() {
             fullWidth
             id="password"
             name="password"
-            label="Password"
+            label="Palavra-chave"
             type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -79,8 +90,8 @@ function Login() {
               ),
             }}
           />
-          <Button fullWidth variant="contained" className="login-button" onClick={handleLogin}>
-            Login
+          <Button fullWidth variant="contained" className="login-button" onClick={handleRegister}>
+            Registar
           </Button>
         </Box>
       </Box>
@@ -88,4 +99,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

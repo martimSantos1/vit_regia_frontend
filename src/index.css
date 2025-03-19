@@ -6,7 +6,7 @@
   --text-color: #111528;
   --secondary-text: #444a69;
   --primary-color: #a2b8f8;
-  --accent-color: #0071ff;
+  --accent-color: #abd1ff;
   --navbar-color: #1d222f;
 }
 
@@ -32,7 +32,7 @@ body {
   font-family: Poppins, 'Segoe UI', sans-serif;
   min-height: 100vh;
   min-height: 100dvh;
-  background-color: var(--base-color);
+  background-image: linear-gradient(to bottom right, var(--accent-color), var(--base-color));
   overflow: hidden;
 }
 
@@ -46,5 +46,5 @@ main p {
 
 .content-container {
   padding-top: 4em;
-  min-height: calc(100vh - 34px);
+  min-height: calc(100vh - 20vh);
 }

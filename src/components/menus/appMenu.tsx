@@ -29,6 +29,9 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
           <li>
             <Link to="/login">Login</Link>
           </li>
+          <li>
+            <Link to="/register">Resgistar</Link>
+          </li>
         </ul>
       </nav>
 
@@ -39,7 +42,7 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
         <button className="close-btn" onClick={closeSidePanel}>
           &times;
         </button>
-        <ul>
+        <ul className="sidepanel-top-container">
           <li>
             <Link to="/" onClick={closeSidePanel}>Home</Link>
           </li>
@@ -49,8 +52,14 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
           <li>
             <Link to="/services" onClick={closeSidePanel}>Services</Link>
           </li>
+        </ul>
+
+        <ul className="sidepanel-bottom-container">
           <li>
-            <Link to="/login" onClick={closeSidePanel}>Login</Link>
+            <Link to="/login" onClick={closeSidePanel}>Entrar</Link>
+          </li>
+          <li>
+            <Link to="/register" onClick={closeSidePanel}>Registar</Link>
           </li>
         </ul>
       </div>
