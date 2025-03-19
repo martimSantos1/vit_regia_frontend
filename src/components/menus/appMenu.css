@@ -1,0 +1,146 @@
+nav {
+    width: 100%;
+    background-color: var(--navbar-color);
+    border-bottom: 1px solid var(--hover-color);
+    display: flex;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    width: 100%;
+}
+
+.nav-right {
+    justify-content: end;
+}
+
+nav li a {
+    display: flex;
+    text-decoration: none;
+    color: var(--base-color);
+    padding: 1em 2em;
+    align-items: center;
+}
+
+nav a:hover {
+    background-color: var(--hover-color);
+}
+
+/* Sidepanel styles */
+.sidepanel {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--navbar-color);
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    z-index: 1000;
+}
+
+.sidepanel.open {
+    width: 50%;
+}
+
+.sidepanel .close-btn {
+    position: absolute;
+    top: 2%;
+    right: 12%;
+    font-size: 300%;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.sidepanel ul {
+    list-style: none;
+    /* Ensure no bullets */
+    padding: 0;
+    /* Remove default padding */
+    margin: 0;
+    /* Remove default margin */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sidepanel ul li {
+    padding: 1em 2em;
+    /* Adjust padding for consistent spacing */
+    text-align: center;
+}
+
+.sidepanel ul li a {
+    font-family: Poppins, 'Segoe UI', sans-serif;
+    /* Match font family */
+    font-size: 1.5em;
+    /* Adjust font size */
+    color: var(--base-color);
+    /* Match navbar link color */
+    text-decoration: none;
+    /* Remove underline */
+    display: flex;
+    /* Match navbar link display */
+    align-items: center;
+    /* Center-align text */
+    justify-content: center;
+    /* Center-align text */
+    background-color: transparent;
+    /* Ensure no background by default */
+    transition: background-color 0.3s ease;
+    /* Smooth hover effect */
+}
+
+.sidepanel ul li a:hover {
+    background-color: var(--hover-color);
+    /* Match navbar hover background */
+    text-decoration: none;
+    /* Ensure underline is removed on hover */
+}
+
+/* Menu toggle button */
+.menu-toggle {
+    font-size: 200%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: none;
+    color: white;
+    padding: 3%;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-left,
+    .nav-right {
+        display: none;
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+    backdrop-filter: blur(5px);
+    /* Blur effect */
+    z-index: 999;
+    /* Ensure it appears above other elements */
+}
+
+.no-scroll {
+    overflow: hidden;
+    /* Lock scrolling */
+    height: 100%;
+    /* Prevent scrolling by fixing height */
+}

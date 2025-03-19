@@ -1,8 +1,8 @@
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layout";
 import Home from "./components/home";
-import Login from "./components/login";
+import Login from "./components/authentication/login";
 
 export default function App() {
   return (

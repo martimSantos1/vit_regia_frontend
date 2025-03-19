@@ -11,7 +11,7 @@ import {
   InputAdornment
 } from "@mui/material";
 import { useState } from "react";
-import "./styles/login.css";
+import "./authenticationUtils.css";
 
 function Login(){
   const [response, setResponse] = useState<{ message?: string; error?: string } | null>(null);
@@ -50,7 +50,7 @@ function Login(){
   };
 
   return (
-    <Container maxWidth="xs">
+    <Container className="main-container">
       <CssBaseline />
       <Box className="login-container">
         <Avatar className="login-avatar">
