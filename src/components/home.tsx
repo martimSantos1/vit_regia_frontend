@@ -1,17 +1,15 @@
-import "./../index.css";
+import "./home.css";
 
 const Home = () => {
-    return (
-      <>
+  return (
+    <div className="home-hero">
+      <img src="src/assets/catalao_cropped.jpg" alt="Comunidade do Catalão" />
+      <div className="overlay-text">
         <h1>Vitória Régia</h1>
-        <img src="src\assets\vit_regia.png" alt="Vitória Régia" />
-        <h2>Um projeto com a promessa de ajudar no monitoramento e teste da qualidade da água</h2>
-        <p>Este projeto tem o intuito de ajudar na monitoração da qualidade da água, utilizando a planta Vitória Régia como indicador de qualidade da água.</p>
-        <p>Com o uso de sensores e uma aplicação web, é possível monitorar a qualidade da água e identificar possíveis problemas em tempo real.</p>
-        <p>Com isso, é possível identificar possíveis problemas e agir rapidamente para resolver o problema.</p>
-        <p>Além disso, a aplicação web permite a visualização dos dados em tempo real, facilitando a sua análise.</p>
-      </>
-  )
+        <h2>A importância da qualidade da nossa água</h2>
+      </div>
+    </div>
+  );
 };
-  
+
 export default Home;

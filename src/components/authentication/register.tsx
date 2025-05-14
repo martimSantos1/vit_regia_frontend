@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import "./authentication-style.css";
+import { signup } from "../../services/auth-services.ts";
 
 function Register() {
   const [response, setResponse] = useState<{ message?: string; error?: string } | null>(null);
@@ -29,9 +30,9 @@ function Register() {
   };
 
   const handleRegister = async () => {
-    const data = JSON.stringify({ userName, email, password })
-    //setResponse(data);
-    console.log(data);
+    const data = await signup(userName, email, password); // Using the signup function from auth-services.ts
+    setResponse(data);
+    console.log(response);
   };
 
   return (
@@ -41,9 +42,9 @@ function Register() {
         <Avatar className="login-avatar">
           <LockOutlined />
         </Avatar>
-        <Typography variant="h4">Registe-se</Typography>
         <Box className="login-box">
-        <TextField
+          <Typography variant="h4">Registe-se</Typography>  
+          <TextField
             margin="normal"
             required
             fullWidth

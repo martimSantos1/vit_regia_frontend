@@ -26,15 +26,19 @@ const Layout = () => {
 
   return (
     <>
-      <AppMenu
-        toggleSidePanel={toggleSidePanel}
-        closeSidePanel={closeSidePanel}
-        isSidePanelOpen={isSidePanelOpen}
-      />
+      <div className="nav-bar">
+        <AppMenu
+          toggleSidePanel={toggleSidePanel}
+          closeSidePanel={closeSidePanel}
+          isSidePanelOpen={isSidePanelOpen}
+        />
+      </div>
       <div className="content-container">
         <Outlet />
       </div>
-      <AppFooter />
+      <div className="footer">
+        <AppFooter />
+      </div>
     </>
   );
 };

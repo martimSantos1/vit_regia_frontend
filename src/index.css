@@ -44,7 +44,16 @@ main p {
   margin-top: .35em;
 }
 
+.nav-bar{
+  z-index: 2;
+}
+
+.footer {
+  z-index: 2;
+}
+
 .content-container {
   padding-top: 4em;
   min-height: calc(100vh - 20vh);
+  z-index: 1;
 }
