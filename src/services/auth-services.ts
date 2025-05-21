@@ -17,7 +17,7 @@ export async function login(email: string, password: string) {
 
 export async function signup(name: string, email: string, password: string) {
   try {
-    const res = await fetch("http://localhost:5000/api/users/signup", {
+    const res = await fetch("http://172.18.157.49:5000/api/users/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

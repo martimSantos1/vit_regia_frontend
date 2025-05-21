@@ -31,3 +31,41 @@
 .login-button {
   background-color: #1d222f !important;
 }
+
+/* Blur + Spinner overlay */
+.overlay-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+}
+
+/* Estilo do círculo de loading */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #ccc;
+  border-top: 6px solid #444a69;
+  /* azul Material UI */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animação do spinner */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
