@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import "./appMenu.css";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 
 interface MenuProps {
@@ -9,7 +9,10 @@ interface MenuProps {
 }
 
 const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps) => {
+  const navigate = useNavigate();
+
   const { user, logout } = useAuth();
+  
 
   return (
     <>
@@ -36,9 +39,16 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
                 <Link to="/profile">{user.name}</Link>
               </li>
               <li>
-                <button onClick={logout} style={{ background: "none", border: "none", cursor: "pointer" }}>
+                <Link
+                  to="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    logout();
+                    navigate("/");
+                  }}
+                >
                   Logout
-                </button>
+                </Link>
               </li>
             </>
           ) : (
@@ -80,9 +90,19 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
                 <Link to="/profile" onClick={closeSidePanel}>{user.name}</Link>
               </li>
               <li>
-                <button onClick={() => { logout(); closeSidePanel(); }} className="logout-button">
+                <Link
+                  to="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    logout();
+                    closeSidePanel();
+                    navigate("/");
+                  }}
+                  className="logout-button"
+                >
                   Logout
-                </button>
+                </Link>
+
               </li>
             </>
           ) : (
