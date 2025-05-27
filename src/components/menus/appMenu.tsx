@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import "./appMenu.css"
+import "./appMenu.css";
+import { useAuth } from "../../context/authContext";
 
 interface MenuProps {
   toggleSidePanel: () => void;
@@ -8,6 +9,8 @@ interface MenuProps {
 }
 
 const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps) => {
+  const { user, logout } = useAuth();
+
   return (
     <>
       <nav>
@@ -25,13 +28,29 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
             <Link to="/services">Services</Link>
           </li>
         </ul>
+
         <ul className="nav-right">
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/register">Resgistar</Link>
-          </li>
+          {user ? (
+            <>
+              <li>
+                <Link to="/profile">{user.name}</Link>
+              </li>
+              <li>
+                <button onClick={logout} style={{ background: "none", border: "none", cursor: "pointer" }}>
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/login">Entrar</Link>
+              </li>
+              <li>
+                <Link to="/register">Registar</Link>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
 
@@ -55,12 +74,27 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
         </ul>
 
         <ul className="sidepanel-bottom-container">
-          <li>
-            <Link to="/login" onClick={closeSidePanel}>Entrar</Link>
-          </li>
-          <li>
-            <Link to="/register" onClick={closeSidePanel}>Registar</Link>
-          </li>
+          {user ? (
+            <>
+              <li>
+                <Link to="/profile" onClick={closeSidePanel}>{user.name}</Link>
+              </li>
+              <li>
+                <button onClick={() => { logout(); closeSidePanel(); }} className="logout-button">
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/login" onClick={closeSidePanel}>Entrar</Link>
+              </li>
+              <li>
+                <Link to="/register" onClick={closeSidePanel}>Registar</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </>

@@ -1,33 +1,25 @@
+import publicApi from "./api/publicApi";
+
 export async function login(email: string, password: string) {
   try {
-    const res = await fetch("http://localhost:5000/api/users/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    return await res.json();
-  } catch (error) {
-    console.error("Erro ao comunicar com o servidor:", error);
-    return { error: "Erro ao comunicar com o servidor" };
+    const response = await publicApi.post("/users/login", { email, password });
+    return response.data;
+  } catch (error: any) {
+    console.error("Erro ao fazer login:", error);
+    return {
+      error: error.response?.data?.error || "Erro ao comunicar com o servidor",
+    };
   }
 }
 
 export async function signup(name: string, email: string, password: string) {
   try {
-    const res = await fetch("http://172.18.157.49:5000/api/users/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, email, password }),
-    });
-
-    return await res.json();
-  } catch (error) {
-    console.error("Erro ao comunicar com o servidor:", error);
-    return { error: "Erro ao comunicar com o servidor" };
+    const response = await publicApi.post("/users/signup", { name, email, password });
+    return response.data;
+  } catch (error: any) {
+    console.error("Erro ao fazer registo:", error);
+    return {
+      error: error.response?.data?.error || "Erro ao comunicar com o servidor",
+    };
   }
 }

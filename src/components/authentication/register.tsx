@@ -16,7 +16,8 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./authentication-style.css";
-import { signup } from "../../services/auth-services.ts";
+import { signup, login } from "../../services/auth-services.ts";
+import { useAuth } from "../../context/authContext.tsx";
 
 function Register() {
   const navigate = useNavigate(); // Hook necessário para redirecionar
@@ -32,6 +33,8 @@ function Register() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const { setUser } = useAuth(); // Hook para atualizar o estado do utilizador autenticado
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -40,32 +43,40 @@ function Register() {
     event.preventDefault();
   };
 
+
   const handleRegister = async () => {
     setIsLoading(true);
-    const data = await signup(userName, email, password);
 
-    console.log("Response from server:", data);
+    try {
+      const registerData = await signup(userName, email, password);
 
-    if (data.message && !data.error) {
-      setSnackbarMsg("Registo concluído com sucesso!");
-      setSnackbarSeverity("success");
-      setOpenSnackbar(true);
+      if (registerData.message && !registerData.error) {
+        // login automático
+        const loginData = await login(email, password);
 
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-    } else if (data.error) {
-      setSnackbarMsg(data.error || "Erro durante o registo.");
-      setSnackbarSeverity("error");
-      setOpenSnackbar(true);
-      setIsLoading(false);
-    } else {
-      setSnackbarMsg("Erro desconhecido.");
+        if (loginData.message && !loginData.error) {
+          setUser(loginData.user); // Atualiza o estado do utilizador autenticado
+          setSnackbarMsg("Registo e login concluídos com sucesso!");
+          setSnackbarSeverity("success");
+          setOpenSnackbar(true);
+
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
+        } else {
+          throw new Error(loginData.error || "Erro ao iniciar sessão.");
+        }
+      } else {
+        throw new Error(registerData.error || "Erro durante o registo.");
+      }
+    } catch (err: any) {
+      setSnackbarMsg(err.message || "Erro desconhecido.");
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
       setIsLoading(false);
     }
   };
+
 
 
   return (
