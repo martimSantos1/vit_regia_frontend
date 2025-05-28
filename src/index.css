@@ -32,7 +32,7 @@ body {
   font-family: Poppins, 'Segoe UI', sans-serif;
   min-height: 100vh;
   min-height: 100dvh;
-  background-image: linear-gradient(to bottom right, var(--accent-color), var(--base-color));
+  background-image: var(--base-color);
   overflow: hidden;
 }
 
@@ -53,7 +53,6 @@ main p {
 }
 
 .content-container {
-  padding-top: 4em;
   min-height: calc(100vh - 20vh);
   z-index: 1;
 }

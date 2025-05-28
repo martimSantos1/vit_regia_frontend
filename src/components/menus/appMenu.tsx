@@ -22,13 +22,13 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
         </button>
         <ul className="nav-left">
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">Início</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/about">Sobre</Link>
           </li>
           <li>
-            <Link to="/services">Services</Link>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
         </ul>
 

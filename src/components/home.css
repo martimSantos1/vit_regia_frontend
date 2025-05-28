@@ -1,37 +1,179 @@
+/* GERAL */
+.home-container {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+/* CONTAINER INTRODUÇÃO */
 .home-hero {
     position: relative;
-    width: 100%;
-    margin-top: -4em;
+    width: 100vw;
+    height: 50vh;
+    margin: 0;
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Importante para conter o ::before */
+    box-sizing: border-box;
+    z-index: 0;
 }
 
-.home-hero img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
-
-.overlay-text {
+/* Layer de imagem com blur */
+.home-hero::before {
+    content: "";
     position: absolute;
-    top: 20%;
-    width: 100%;
-    text-align: center;
+    inset: 0;
+    background-image: url('src/assets/catalao_cropped.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(2px);
+    transform: scale(1.1);
+    /* Evita bordas visíveis no blur */
+    z-index: -1;
+}
+
+/* Texto por cima */
+.overlay-text {
     color: white;
+    text-align: center;
+    padding: 0 2rem;
+    margin: 0;
     z-index: 1;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-    padding: 0 1rem;
-    /* Protege contra corte lateral em ecrãs pequenos */
-    box-sizing: border-box;
 }
+
 
 .overlay-text h1 {
-    font-size: clamp(1.5rem, 5vw, 3rem);
-    /* Responsivo entre 1.5rem e 3rem */
-    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1rem;
 }
 
-.overlay-text h2 {
-    font-size: clamp(1rem, 3.5vw, 1.5rem);
-    /* Responsivo entre 1rem e 1.5rem */
-    margin: 0.5em 0 0;
+/* CONTAINER SOBRE O PROJETO */
+.home-about {
+    padding: 1rem 2rem;
+    text-align: center;
+}
+
+.home-about h2 {
+    font-size: 2rem;
+    color: #1e3a5f;
+    margin-bottom: 1rem;
+}
+
+.home-about p {
+    font-size: 1.1rem;
+    color: #333;
+    max-width: 700px;
+    margin: auto;
+    text-align: justify;
+}
+
+/* CONTAINER DADOS */
+.home-data {
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.home-data h2 {
+    font-size: 2rem;
+    color: #1e3a5f;
+    margin-bottom: 1rem;
+}
+
+.data-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.data-card {
+    background-color: #e3f2fd;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    min-width: 120px;
+}
+
+.data-label {
+    font-weight: bold;
+    color: #1565c0;
+}
+
+.data-value {
+    font-size: 1.5rem;
+    margin-top: 0.3rem;
+}
+
+.data-note {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* CONTAINER CALL TO ACTION */
+.home-cta-split {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 40vh;
+    background-color: #e3f2fd;
+    padding: 2rem 8rem;
+}
+
+.cta-text-area {
+    flex: 0 0 60%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cta-text-area h2 {
+    font-size: 2rem;
+    color: #1e3a5f;
+    margin-bottom: 1rem;
+}
+
+.cta-text-area p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+    color: #333;
+}
+
+.cta-image-area {
+    flex: 0 0 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.cta-image-area img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    max-height: 300px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .home-cta-split {
+        flex-direction: column;
+    }
+
+    .cta-text-area,
+    .cta-image-area {
+        flex: 0 0 100%;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .cta-image-area img {
+        max-height: 250px;
+    }
 }
