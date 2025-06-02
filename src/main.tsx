@@ -1,24 +1,36 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/authContext";
+import ScrollToTop from "./srcollToTop";
+
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "./theme";
+
 import Layout from "./layout";
 import Home from "./components/home";
 import Login from "./components/authentication/login";
 import Register from "./components/authentication/register";
 import About from "./components/info-pages/about";
-import { AuthProvider } from "./context/authContext";
+import Contacts from "./components/info-pages/contacts";
 
 export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/about" element={<About />} />
-          </Route>
-        </Routes>
+        <ScrollToTop />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contacts" element={<Contacts />} />
+            </Route>
+          </Routes>
+        </ThemeProvider>
       </BrowserRouter>
     </AuthProvider>
   );

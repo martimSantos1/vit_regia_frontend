@@ -1,5 +1,6 @@
 import { Footer } from "flowbite-react";
 import { BsGithub } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import "./footer.css"
 
 const AppFooter = () => {
@@ -10,13 +11,19 @@ const AppFooter = () => {
           <div className="footer-main">
             <div>
               <Footer.Title title="Projeto" />
-              <Footer.Link href="#">Sobre o projeto</Footer.Link>
-              <Footer.Link href="#">Sobre o Gecad</Footer.Link>
+              <Link to="/about">Sobre o projeto</Link>
+              <Footer.Link
+                href="https://www.gecad.isep.ipp.pt/about/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Sobre o Gecad
+              </Footer.Link>
             </div>
             <div>
               <Footer.Title title="Ajuda" />
               <Footer.Link href="#">FAQs</Footer.Link>
-              <Footer.Link href="#">Contacte-nos</Footer.Link>
+              <Link to="/contacts">Contacte-nos</Link>
             </div>
             <div>
               <Footer.Title title="Legal" />
@@ -24,11 +31,11 @@ const AppFooter = () => {
               <Footer.Link href="#">Licença</Footer.Link>
               <Footer.Link href="#">Termos &amp; Condições</Footer.Link>
             </div>
-            <div>
+            {/*<div>
               <Footer.Title title="Download" />
               <Footer.Link href="#">iOS</Footer.Link>
               <Footer.Link href="#">Android</Footer.Link>
-            </div>
+            </div>*/}
           </div>
           <div className="footer-bottom">
             <Footer.Copyright href="#" by="Gecad™" year={2025} />

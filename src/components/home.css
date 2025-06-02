@@ -1,8 +1,3 @@
-/* GERAL */
-.home-container {
-    font-family: 'Poppins', 'Segoe UI', sans-serif;
-}
-
 /* CONTAINER INTRODUÇÃO */
 .home-hero {
     position: relative;
@@ -62,10 +57,10 @@
     margin-bottom: 1rem;
 }
 
-.home-about p {
+.home-about-text {
+    padding-bottom: 2rem;
     font-size: 1.1rem;
     color: #333;
-    max-width: 700px;
     margin: auto;
     text-align: justify;
 }
