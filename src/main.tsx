@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/authContext";
-import ScrollToTop from "./srcollToTop";
+import ScrollToTop from "./scrollToTop";
 
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,6 +13,8 @@ import Login from "./components/authentication/login";
 import Register from "./components/authentication/register";
 import About from "./components/info-pages/about";
 import Contacts from "./components/info-pages/contacts";
+import FAQS from "./components/info-pages/faqs";
+import License from "./components/info-pages/license";
 
 export default function App() {
   return (
@@ -28,6 +30,8 @@ export default function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/about" element={<About />} />
               <Route path="/contacts" element={<Contacts />} />
+              <Route path="/faqs" element={<FAQS />} />
+              <Route path="/license" element={<License />} />
             </Route>
           </Routes>
         </ThemeProvider>

@@ -56,3 +56,48 @@
 .slick-next::before {
     color: #1976d2;
 }
+
+
+/* FAQ SECTION */
+.faq-section {
+    padding: 2rem;
+    background-color: #f4f9ff;
+}
+
+/* Envolve todos os accordions */
+.faq-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Opcional: ajustar espaçamento entre items se desejado */
+.MuiAccordion-root {
+    border-top: 1px solid #ddd;
+}
+
+/* Remover borda do primeiro item */
+.MuiAccordion-root:first-of-type {
+    border-top: none;
+}
+
+
+/* LICENÇA */
+.license-section {
+    padding: 2rem;
+    background-color: #f4f9ff;
+}
+
+.license-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+}
+
+.license-download {
+    margin-top: 2rem;
+    text-align: center;
+}

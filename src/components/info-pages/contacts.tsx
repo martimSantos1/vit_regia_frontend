@@ -25,7 +25,8 @@ const Contacts = () => {
                 <PhoneIcon sx={{ mr: 1 }} />
                 Telefone
               </Typography>
-              <Typography variant="body1">+351 22 834 0500</Typography>
+              <Typography variant="body1"><strong>GECAD:</strong> +351 22 834 0500</Typography>
+              <Typography variant="body1"><strong>Prof. Ana Machado:</strong> +55 92 993335648</Typography>
             </CardContent>
           </Card>
 
