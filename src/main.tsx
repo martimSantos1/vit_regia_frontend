@@ -15,6 +15,7 @@ import About from "./components/info-pages/about";
 import Contacts from "./components/info-pages/contacts";
 import FAQS from "./components/info-pages/faqs";
 import License from "./components/info-pages/license";
+import Dashboard from "./components/dashboards/dashboard";
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/faqs" element={<FAQS />} />
               <Route path="/license" element={<License />} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Route>
           </Routes>
         </ThemeProvider>

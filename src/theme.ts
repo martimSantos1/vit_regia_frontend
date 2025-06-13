@@ -19,6 +19,14 @@ const theme = createTheme({
       color: "#003c78",
       fontWeight: 'bold', 
     },
+    h5: {
+      color: "#003c78",
+      fontWeight: 'bold', 
+    },
+    h6: {
+      color: "#003c78",
+      fontWeight: 'bold', 
+    },
   },
 });
 
