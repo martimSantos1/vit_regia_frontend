@@ -1,11 +1,11 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/authContext";
-import ScrollToTop from "./scrollToTop";
+import ScrollToTop from "./utils/scrollToTop";
 
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import theme from "./theme";
+import theme from "./utils/theme";
 
 import Layout from "./layout";
 import Home from "./components/home";

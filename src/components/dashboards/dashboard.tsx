@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import dataApi from "../../services/api/dataApi";
+//import dataApi from "../../services/api/dataApi";
 import { SensorCard } from "./sensorCard";
 import { Box, Typography, CircularProgress } from "@mui/material";
-import ExplanationSection from "./parametersExplanation";
+import { SensorDialog } from "./sensorDialog"; // ✅ importa o dialog
 
 type SensorData = {
     temperature: number;
@@ -10,24 +10,50 @@ type SensorData = {
     tds: number;
     conductivity: number;
     oxygen: number;
+    turbidity: number;
     timestamp: string;
+};
+
+
+// ✅ Mapeamento de textos explicativos por parâmetro
+const explanations: Record<string, string> = {
+    "Temperatura": "A temperatura da água influencia a solubilidade do oxigénio e a atividade biológica.",
+    "pH": "O pH ideal da água potável varia entre 6,5 e 8,5. Valores fora deste intervalo podem indicar contaminação ou desequilíbrio químico.",
+    "TDS": "TDS (Total de Sólidos Dissolvidos) indica a quantidade de substâncias dissolvidas na água, geralmente medida em ppm.",
+    "Condutividade": "A condutividade elétrica da água reflete a presença de sais dissolvidos e outros minerais.",
+    "Oxigénio Dissolvido": "O oxigénio dissolvido é essencial para a vida aquática. Valores baixos podem indicar poluição.",
+    "Turbidez": "A turbidez mede a clareza da água. Valores altos podem indicar a presença de partículas suspensas, como sedimentos ou poluentes.",
 };
 
 export default function Dashboard() {
     const [data, setData] = useState<SensorData | null>(null);
 
+    // ✅ estado do diálogo
+    const [openDialog, setOpenDialog] = useState(false);
+    const [selectedSensor, setSelectedSensor] = useState<{ label: string; explanation: string } | null>(null);
+
+    const handleOpen = (label: string) => {
+        setSelectedSensor({ label, explanation: explanations[label] || "Sem explicação disponível." });
+        setOpenDialog(true);
+    };
+
+    const handleClose = () => {
+        setOpenDialog(false);
+        setSelectedSensor(null);
+    };
+
     const fetchLatestData = async () => {
         try {
-            //const response = await dataApi.get("/latest");
-            // Usa a resposta real, ou dados de teste se quiseres
             const testData: SensorData = {
                 temperature: 25.3,
                 ph: 5.8,
                 tds: 500,
                 conductivity: 500,
                 oxygen: 8.5,
+                turbidity: 42,
                 timestamp: new Date().toISOString(),
             };
+
             setData(testData);
         } catch (error) {
             console.error("Erro ao buscar dados:", error);
@@ -46,13 +72,9 @@ export default function Dashboard() {
                 <Typography variant="h4" gutterBottom>
                     Dados em Tempo Real
                 </Typography>
-
-                {/* Circular progress */}
                 <Box sx={{ textAlign: "center", mt: 4, mb: 4 }}>
                     <CircularProgress size={100} />
                 </Box>
-
-
                 <Typography textAlign="center">Carregando dados...</Typography>
             </Box>
         );
@@ -64,14 +86,7 @@ export default function Dashboard() {
                 Dados em Tempo Real
             </Typography>
 
-            {/* Primeira linha: Temperatura e pH */}
-            <Box
-                display="flex"
-                flexDirection={{ xs: "column", sm: "row" }}
-                gap={1}
-                justifyContent="center"
-                mb={3}
-            >
+            <Box display="flex" flexDirection={{ xs: "column", sm: "row" }} gap={1} justifyContent="center" mb={3}>
                 <SensorCard
                     label="Temperatura"
                     sensorType="temperature"
@@ -79,6 +94,7 @@ export default function Dashboard() {
                     maxValue={50}
                     unit="ºC"
                     width={{ xs: "100%", sm: "48%", md: "40%" }}
+                    onClick={() => handleOpen("Temperatura")} // ✅
                 />
                 <SensorCard
                     label="pH"
@@ -87,18 +103,11 @@ export default function Dashboard() {
                     maxValue={14}
                     unit=""
                     width={{ xs: "100%", sm: "48%", md: "40%" }}
+                    onClick={() => handleOpen("pH")} // ✅
                 />
             </Box>
 
-            {/* Segunda linha: restantes sensores */}
-            <Box
-                display="flex"
-                flexDirection={{ xs: "column", sm: "row" }}
-                flexWrap="wrap"
-                gap={4}
-                justifyContent="center"
-                mb={2}
-            >
+            <Box display="flex" flexDirection={{ xs: "column", sm: "row" }} flexWrap="wrap" gap={4} justifyContent="center" mb={2}>
                 <SensorCard
                     label="TDS"
                     sensorType="tds"
@@ -106,6 +115,7 @@ export default function Dashboard() {
                     maxValue={1000}
                     unit="ppm"
                     width={{ xs: "100%", sm: "33%", md: "25%" }}
+                    onClick={() => handleOpen("TDS")} // ✅
                 />
                 <SensorCard
                     label="Condutividade"
@@ -114,6 +124,7 @@ export default function Dashboard() {
                     maxValue={2000}
                     unit="µS/cm"
                     width={{ xs: "100%", sm: "33%", md: "25%" }}
+                    onClick={() => handleOpen("Condutividade")} // ✅
                 />
                 <SensorCard
                     label="Oxigénio Dissolvido"
@@ -122,17 +133,33 @@ export default function Dashboard() {
                     maxValue={20}
                     unit="mg/L"
                     width={{ xs: "100%", sm: "33%", md: "25%" }}
+                    onClick={() => handleOpen("Oxigénio Dissolvido")} // ✅
                 />
+                <SensorCard
+                    label="Turbidez"
+                    sensorType="turbidity"
+                    value={data.turbidity}
+                    maxValue={100}
+                    unit="NTU"
+                    width={{ xs: "100%", sm: "33%", md: "25%" }}
+                    onClick={() => handleOpen("Turbidez")} // ✅
+                />
+
             </Box>
 
-            {/* Data da última atualização */}
             <Typography variant="body2" color="textSecondary" textAlign="right">
                 Última atualização: {new Date(data.timestamp).toLocaleString()}
             </Typography>
 
-            <ExplanationSection/>
+            {/* ✅ Diálogo explicativo */}
+            {selectedSensor && (
+                <SensorDialog
+                    open={openDialog}
+                    onClose={handleClose}
+                    sensorLabel={selectedSensor.label}
+                    explanation={selectedSensor.explanation}
+                />
+            )}
         </Box>
     );
-
 }
-

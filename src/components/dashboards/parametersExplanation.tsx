@@ -1,5 +1,3 @@
-// src/components/ExplanationSection.tsx
-
 import { Box, Typography } from "@mui/material";
 
 export default function ExplanationSection() {

@@ -1,4 +1,4 @@
-export type SensorType = "temperature" | "ph" | "tds" | "conductivity" | "oxygen";
+export type SensorType = "temperature" | "ph" | "tds" | "conductivity" | "oxygen" | "turbidity";
 
 export function getProgressColorPerType(tipo: SensorType, valor: number): string {
     switch (tipo) {
@@ -31,7 +31,8 @@ export function getProgressColorPerType(tipo: SensorType, valor: number): string
             if (valor < 5) return "#ff9800";
             if (valor < 10) return "#4caf50";
             return "#2196f3";
-
+        case "turbidity":
+            return valor > 70 ? "#d32f2f" : valor > 40 ? "#fbc02d" : "#388e3c";
         default:
             return "#4caf50";
     }
