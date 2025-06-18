@@ -11,8 +11,9 @@ interface MenuProps {
 const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps) => {
   const navigate = useNavigate();
 
-  const { user, logout } = useAuth();
-  
+  const { user, logout, loading } = useAuth();
+
+  if (loading) return null;
 
   return (
     <>
@@ -27,9 +28,11 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
           <li>
             <Link to="/about">Sobre</Link>
           </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
+          {user && (
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+          )}
         </ul>
 
         <ul className="nav-right">
@@ -73,14 +76,16 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
         </button>
         <ul className="sidepanel-top-container">
           <li>
-            <Link to="/" onClick={closeSidePanel}>Home</Link>
+            <Link to="/" onClick={closeSidePanel}>Início</Link>
           </li>
           <li>
-            <Link to="/about" onClick={closeSidePanel}>About</Link>
+            <Link to="/about" onClick={closeSidePanel}>Sobre</Link>
           </li>
-          <li>
-            <Link to="/services" onClick={closeSidePanel}>Services</Link>
-          </li>
+          {user && (
+            <li>
+              <Link to="/dashboard" onClick={closeSidePanel}>Dashboard</Link>
+            </li>
+          )}
         </ul>
 
         <ul className="sidepanel-bottom-container">
@@ -102,7 +107,6 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
                 >
                   Logout
                 </Link>
-
               </li>
             </>
           ) : (

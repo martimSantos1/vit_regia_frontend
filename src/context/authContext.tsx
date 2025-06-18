@@ -30,7 +30,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const fetchUser = async () => {
       try {
         const res = await privateApi.get("/users/me");
-        setUser(res.data); // já vem em JSON
+        console.log("Dados do utilizador:", res.data); // Log para depuração
+        setUser(res.data.user); // já vem em JSON
       } catch (err) {
         console.error("Erro ao verificar sessão:", err);
       } finally {

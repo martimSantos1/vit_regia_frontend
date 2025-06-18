@@ -1,8 +1,8 @@
-import publicApi from "./api/publicApi";
+import privateApi from "./api/privateApi";
 
 export async function login(email: string, password: string) {
   try {
-    const response = await publicApi.post("/users/login", { email, password });
+    const response = await privateApi.post("/users/login", { email, password });
     return response.data;
   } catch (error: any) {
     console.error("Erro ao fazer login:", error);
@@ -14,7 +14,7 @@ export async function login(email: string, password: string) {
 
 export async function signup(name: string, email: string, password: string) {
   try {
-    const response = await publicApi.post("/users/signup", { name, email, password });
+    const response = await privateApi.post("/users/signup", { name, email, password });
     return response.data;
   } catch (error: any) {
     console.error("Erro ao fazer registo:", error);
