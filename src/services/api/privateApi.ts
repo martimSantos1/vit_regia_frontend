@@ -1,8 +1,7 @@
-// services/api/privateApi.ts
 import axios from "axios";
 
 const privateApi = axios.create({
-  baseURL: "http://192.168.0.104:5000/api",
+  baseURL: "http://192.168.1.132:5000/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -20,7 +19,7 @@ privateApi.interceptors.response.use(
 
       try {
         await axios.post(
-          "http://192.168.0.104:5000/api/users/refresh",
+          "http://192.168.1.132:5000/api/users/refresh",
           {},
           { withCredentials: true }
         );

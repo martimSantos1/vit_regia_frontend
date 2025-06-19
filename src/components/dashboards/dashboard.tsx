@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-//import dataApi from "../../services/api/dataApi";
+import { getData } from "../../services/data-services";
 import { SensorCard } from "./sensorCard";
 import { Box, Typography, CircularProgress } from "@mui/material";
-import { SensorDialog } from "./sensorDialog"; // ✅ importa o dialog
+import { SensorDialog } from "./sensorDialog";
 
 type SensorData = {
-    temperature: number;
+    conductivity: number;
+    dissolvedOxygen: number;
     ph: number;
     tds: number;
-    conductivity: number;
-    oxygen: number;
-    turbidity: number;
+    temperature: number;
     timestamp: string;
+    turbidity: number;
 };
 
 
@@ -43,18 +43,10 @@ export default function Dashboard() {
     };
 
     const fetchLatestData = async () => {
+        const response = await getData(1);
         try {
-            const testData: SensorData = {
-                temperature: 25.3,
-                ph: 5.8,
-                tds: 500,
-                conductivity: 500,
-                oxygen: 8.5,
-                turbidity: 42,
-                timestamp: new Date().toISOString(),
-            };
-
-            setData(testData);
+            console.log("Dados recebidos:", response.data);
+            setData(response.data[0]);
         } catch (error) {
             console.error("Erro ao buscar dados:", error);
         }
@@ -129,7 +121,7 @@ export default function Dashboard() {
                 <SensorCard
                     label="Oxigénio Dissolvido"
                     sensorType="oxygen"
-                    value={data.oxygen}
+                    value={data.dissolvedOxygen}
                     maxValue={20}
                     unit="mg/L"
                     width={{ xs: "100%", sm: "33%", md: "25%" }}
