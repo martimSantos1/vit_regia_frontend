@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/authContext';
-import { updateUsername } from '../../services/auth-services';
+import { updateUsername, deleteAccount } from '../../services/auth-services';
 import {
-    Card,
-    CardContent,
-    Button,
-    Input,
-    Divider,
-    Typography,
+    Container,
+    CssBaseline,
+    Box,
     Avatar,
+    Typography,
+    TextField,
+    Button,
+    Divider,
     Dialog,
     DialogTitle,
     DialogContent,
@@ -17,14 +18,18 @@ import {
     Snackbar,
     Alert
 } from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom';
 import './profile.css';
 
 export default function Profile() {
     const { user, setUser } = useAuth();
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [editing, setEditing] = useState(false);
     const [loading, setLoading] = useState(false);
     const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({ open: false, message: '', severity: 'success' });
@@ -33,25 +38,17 @@ export default function Profile() {
     useEffect(() => {
         if (user) {
             setUsername(user.name);
+            setEmail(user.email);
         }
     }, [user]);
-
-    useEffect(() => {
-        if (snackbar.open) {
-            const timer = setTimeout(() => {
-                setSnackbar((prev) => ({ ...prev, open: false }));
-            }, 4000);
-            return () => clearTimeout(timer);
-        }
-    }, [snackbar.open]);
 
     const handleToggleEdit = async () => {
         if (editing && user) {
             setLoading(true);
             try {
-                console.log('Username a enviar:', username)
                 const updatedUser = await updateUsername(username);
-                setUser({ ...user, name: updatedUser.name });
+                setUser(updatedUser.user);
+                setUsername(updatedUser.name);
                 setSnackbar({ open: true, message: 'Username atualizado com sucesso.', severity: 'success' });
             } catch (error) {
                 setSnackbar({ open: true, message: 'Erro ao atualizar o username.', severity: 'error' });
@@ -62,43 +59,60 @@ export default function Profile() {
         setEditing(!editing);
     };
 
-    const handleDelete = () => {
-        setConfirmOpen(true);
-    };
+    const handleDelete = () => setConfirmOpen(true);
 
-    const handleConfirmDelete = () => {
+    const handleConfirmDelete = async () => {
         setConfirmOpen(false);
-        // Chamada à API de apagar conta a ser implementada
+        try {
+            await deleteAccount();
+            setUser(null);
+            navigate('/');
+        } catch (error) {
+            setSnackbar({ open: true, message: 'Erro ao apagar conta.', severity: 'error' });
+        }
     };
 
     return (
-        <div className="profile-container">
-            <Card className="profile-card">
-                <CardContent className="profile-content">
+        <>
+            {loading && (
+                <div className="overlay-blur">
+                    <div className="spinner" />
+                </div>
+            )}
+
+            <Container className="main-container">
+                <CssBaseline />
+                <Box className="profile-container">
                     <Avatar className="profile-avatar">
-                        <AccountCircleIcon className="profile-icon" />
+                        <AccountCircleIcon />
                     </Avatar>
-                    <div className="profile-fields">
-                        <div>
-                            <Typography variant="subtitle2">Email</Typography>
-                            <Input value={user?.email} disabled fullWidth />
-                        </div>
-                        <div>
-                            <Typography variant="subtitle2">Username</Typography>
-                            <Input
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                disabled={!editing || loading}
-                                fullWidth
-                            />
-                        </div>
-                        <Divider sx={{ marginY: 2 }} />
-                        <Button
-                            variant={editing ? 'contained' : 'outlined'}
-                            startIcon={<EditIcon />}
-                            onClick={handleToggleEdit}
+                    <Typography variant="h4" align="center">Perfil</Typography>
+                    <Box className="profile-box">
+                        <TextField
+                            margin="normal"
                             fullWidth
+                            label="Email"
+                            value={email}
+                            disabled
+                            InputLabelProps={{ shrink: true }}
+                        />
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            label="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            disabled={!editing || loading}
+                            InputLabelProps={{ shrink: true }}
+                        />
+                        <Divider sx={{ my: 2 }} />
+                        <Button
+                            variant="outlined"
+                            startIcon={<EditIcon />}
+                            fullWidth
+                            onClick={handleToggleEdit}
                             disabled={loading}
+                            className="outlined-button"
                         >
                             {editing ? 'Confirmar' : 'Alterar dados da conta'}
                         </Button>
@@ -106,14 +120,14 @@ export default function Profile() {
                             variant="contained"
                             color="error"
                             startIcon={<DeleteIcon />}
-                            onClick={handleDelete}
                             fullWidth
+                            onClick={handleDelete}
                         >
                             Apagar conta
                         </Button>
-                    </div>
-                </CardContent>
-            </Card>
+                    </Box>
+                </Box>
+            </Container>
 
             <Dialog open={confirmOpen} onClose={() => setConfirmOpen(false)}>
                 <DialogTitle>Confirmar eliminação</DialogTitle>
@@ -132,12 +146,14 @@ export default function Profile() {
 
             <Snackbar
                 open={snackbar.open}
+                autoHideDuration={4000}
+                onClose={() => setSnackbar({ ...snackbar, open: false })}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
             >
                 <Alert severity={snackbar.severity} onClose={() => setSnackbar({ ...snackbar, open: false })} sx={{ width: '100%' }}>
                     {snackbar.message}
                 </Alert>
             </Snackbar>
-        </div>
+        </>
     );
 }

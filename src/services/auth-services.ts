@@ -33,3 +33,13 @@ export async function updateUsername(name: string) {
     throw new Error(error.response?.data?.error || "Erro ao comunicar com o servidor");
   }
 }
+
+export async function deleteAccount(): Promise<void> {
+  try {
+    const response = await privateApi.delete("/users/delete");
+    return response.data;
+  } catch (error: any) {
+    console.error("Erro ao eliminar conta:", error);
+    throw new Error(error.response?.data?.error || "Erro ao comunicar com o servidor");
+  }
+}
