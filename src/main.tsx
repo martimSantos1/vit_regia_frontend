@@ -17,6 +17,8 @@ import FAQS from "./components/info-pages/faqs";
 import License from "./components/info-pages/license";
 import Dashboard from "./components/dashboards/dashboard";
 import Profile from "./components/user/profile";
+import PrivacyPolicy from "./components/info-pages/privacy-policy";
+import TermsAndConditions from "./components/info-pages/terms";
 
 export default function App() {
   return (
@@ -34,6 +36,8 @@ export default function App() {
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/faqs" element={<FAQS />} />
               <Route path="/license" element={<License />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsAndConditions />} />              
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/profile" element={<Profile/>}/>
             </Route>

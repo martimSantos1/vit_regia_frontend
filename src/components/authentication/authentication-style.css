@@ -59,6 +59,11 @@
   animation: spin 1s linear infinite;
 }
 
+.login-button:disabled {
+  color: #444a69 !important; /* ou outra cor à tua escolha */
+}
+
+
 /* Animação do spinner */
 @keyframes spin {
   0% {

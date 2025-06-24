@@ -29,9 +29,11 @@ const AppFooter = () => {
 
           <Footer.LinkGroup col className="footer-section">
             <Footer.Title title="Legal" />
-            <Footer.Link href="#">Política de Privacidade</Footer.Link>
+            <Link to="/privacy-policy">Política de Privacidade</Link>
+            <br />
             <Link to="/license">Licença</Link>
-            <Footer.Link href="#">Termos &amp; Condições</Footer.Link>
+            <br />
+            <Link to="/terms">Termos &amp; Condições</Link>
           </Footer.LinkGroup>
         </Footer>
 

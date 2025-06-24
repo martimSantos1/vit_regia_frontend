@@ -11,6 +11,9 @@ import {
   InputAdornment,
   Snackbar,
   Alert,
+  FormControlLabel,
+  Checkbox,
+  Link
 } from "@mui/material";
 
 import { useState } from "react";
@@ -20,8 +23,7 @@ import { signup, login } from "../../services/auth-services.ts";
 import { useAuth } from "../../context/authContext.tsx";
 
 function Register() {
-  const navigate = useNavigate(); // Hook necessário para redirecionar
-
+  const navigate = useNavigate();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">("success");
@@ -30,45 +32,28 @@ function Register() {
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useAuth();
 
-  const { setUser } = useAuth(); // Hook para atualizar o estado do utilizador autenticado
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
 
   const handleRegister = async () => {
     setIsLoading(true);
-
     try {
       const registerData = await signup(userName, email, password);
-
       if (registerData.message && !registerData.error) {
-        // login automático
         const loginData = await login(email, password);
-
         if (loginData.message && !loginData.error) {
-          setUser(loginData.user); // Atualiza o estado do utilizador autenticado
+          setUser(loginData.user);
           setSnackbarMsg("Registo e login concluídos com sucesso!");
           setSnackbarSeverity("success");
           setOpenSnackbar(true);
-
-          setTimeout(() => {
-            navigate("/");
-          }, 1500);
-        } else {
-          throw new Error(loginData.error || "Erro ao iniciar sessão.");
-        }
-      } else {
-        throw new Error(registerData.error || "Erro durante o registo.");
-      }
+          setTimeout(() => navigate("/"), 1500);
+        } else throw new Error(loginData.error || "Erro ao iniciar sessão.");
+      } else throw new Error(registerData.error || "Erro durante o registo.");
     } catch (err: any) {
       setSnackbarMsg(err.message || "Erro desconhecido.");
       setSnackbarSeverity("error");
@@ -76,8 +61,6 @@ function Register() {
       setIsLoading(false);
     }
   };
-
-
 
   return (
     <>
@@ -101,8 +84,6 @@ function Register() {
               fullWidth
               id="userName"
               label="Nome de usuário"
-              name="userName"
-              autoFocus
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
             />
@@ -112,7 +93,6 @@ function Register() {
               fullWidth
               id="email"
               label="Endereço de email"
-              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -121,7 +101,6 @@ function Register() {
               required
               fullWidth
               id="password"
-              name="password"
               label="Palavra-chave"
               type={showPassword ? "text" : "password"}
               value={password}
@@ -130,7 +109,6 @@ function Register() {
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
-                      aria-label="toggle password visibility"
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                       className="toggle-visibility-button"
@@ -141,7 +119,33 @@ function Register() {
                 ),
               }}
             />
-            <Button fullWidth variant="contained" className="login-button" onClick={handleRegister}>
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={acceptedTerms}
+                  onChange={(e) => setAcceptedTerms(e.target.checked)}
+                  color="primary"
+                />
+              }
+              label={
+                <Typography variant="body2">
+                  Li e Aceito os{" "}
+                  <Link href="/terms" target="_blank" underline="hover">
+                    Termos e Condições
+                  </Link>
+                </Typography>
+              }
+              sx={{ mt: 1 }}
+            />
+
+            <Button
+              fullWidth
+              variant="contained"
+              className="login-button"
+              onClick={handleRegister}
+              disabled={!acceptedTerms}
+            >
               Registar
             </Button>
           </Box>
