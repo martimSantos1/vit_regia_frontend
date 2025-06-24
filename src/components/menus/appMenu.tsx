@@ -10,10 +10,7 @@ interface MenuProps {
 
 const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps) => {
   const navigate = useNavigate();
-
-  const { user, logout, loading } = useAuth();
-
-  if (loading) return null;
+  const { user, logout } = useAuth(); // remove `loading`
 
   return (
     <>
@@ -21,6 +18,7 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
         <button className="menu-toggle" onClick={toggleSidePanel}>
           ☰
         </button>
+
         <ul className="nav-left">
           <li>
             <Link to="/">Início</Link>
@@ -67,7 +65,7 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
         </ul>
       </nav>
 
-      {/* Overlay */}
+      {/* Overlay e Sidepanel permanecem sempre visíveis e com condicional do user */}
       {isSidePanelOpen && <div className="overlay" onClick={closeSidePanel}></div>}
 
       <div className={`sidepanel ${isSidePanelOpen ? "open" : ""}`}>
@@ -124,5 +122,6 @@ const AppMenu = ({ toggleSidePanel, closeSidePanel, isSidePanelOpen }: MenuProps
     </>
   );
 };
+
 
 export default AppMenu;

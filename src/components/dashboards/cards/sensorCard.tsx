@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Typography } from "@mui/material";
-import { SensorType, getProgressColorPerType } from "../../utils/getProgressColorPerType";
+import { getProgressColorPerType } from "../../../utils/getProgressColorPerType";
+import { SensorType } from "../dashboard-types";
 
 type SensorCardProps = {
     label: string;
     sensorType: SensorType;
-    value: number;
+    value: number | undefined;
     maxValue: number;
     unit?: string;
+    loading?: boolean;
     width: { xs: string; sm: string; md: string };
     onClick?: () => void;
 };
@@ -25,9 +27,39 @@ export const SensorCard: React.FC<SensorCardProps> = ({
     const stroke = 10;
     const normalizedRadius = radius - stroke / 2;
     const circumference = 2 * Math.PI * normalizedRadius;
-    const progress = Math.min(value / maxValue, 1);
+
+    // Valor animado
+    const [animatedValue, setAnimatedValue] = useState(value ?? 0);
+    const animationRef = useRef<number | null>(null);
+
+    // Animação quando `value` muda
+    useEffect(() => {
+        const startValue = animatedValue;
+        const endValue = value ?? 0;
+        const duration = 1000; // duração da animação em ms
+        const startTime = performance.now();
+
+        const animate = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const newValue = startValue + (endValue - startValue) * progress;
+            setAnimatedValue(newValue);
+
+            if (progress < 1) {
+                animationRef.current = requestAnimationFrame(animate);
+            }
+        };
+
+        animationRef.current = requestAnimationFrame(animate);
+
+        return () => {
+            if (animationRef.current) cancelAnimationFrame(animationRef.current);
+        };
+    }, [value]);
+
+    const progress = Math.min(animatedValue / maxValue, 1);
     const strokeDashoffset = circumference * (1 - progress);
-    const color = getProgressColorPerType(sensorType, value);
+    const color = getProgressColorPerType(sensorType, animatedValue);
 
     return (
         <Box
@@ -53,7 +85,6 @@ export const SensorCard: React.FC<SensorCardProps> = ({
 
             <Box position="relative" width={120} height={120} mt={1} mb={1}>
                 <svg height="120" width="120">
-                    {/* Parte incompleta (fundo) */}
                     <circle
                         stroke="#e0e0e0"
                         fill="transparent"
@@ -66,8 +97,6 @@ export const SensorCard: React.FC<SensorCardProps> = ({
                         strokeDashoffset={0}
                         transform="rotate(-90 60 60)"
                     />
-
-                    {/* Parte preenchida */}
                     <circle
                         stroke={color}
                         fill="transparent"
@@ -82,7 +111,6 @@ export const SensorCard: React.FC<SensorCardProps> = ({
                     />
                 </svg>
 
-                {/* Texto central */}
                 <Box
                     sx={{
                         position: "absolute",
@@ -97,7 +125,7 @@ export const SensorCard: React.FC<SensorCardProps> = ({
                     }}
                 >
                     <Typography variant="h6">
-                        {value}
+                        {Math.round(animatedValue)}
                         {unit && <span style={{ fontSize: "0.75rem" }}> {unit}</span>}
                     </Typography>
                 </Box>

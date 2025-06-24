@@ -1,4 +1,4 @@
-export type SensorType = "temperature" | "ph" | "tds" | "conductivity" | "oxygen" | "turbidity";
+import { SensorType } from "../components/dashboards/dashboard-types";
 
 export function getProgressColorPerType(tipo: SensorType, valor: number): string {
     switch (tipo) {
@@ -26,7 +26,7 @@ export function getProgressColorPerType(tipo: SensorType, valor: number): string
             if (valor < 1000) return "#ff9800";
             return "#f44336";
 
-        case "oxygen":
+        case "dissolvedOxygen":
             if (valor < 3) return "#f44336";
             if (valor < 5) return "#ff9800";
             if (valor < 10) return "#4caf50";
