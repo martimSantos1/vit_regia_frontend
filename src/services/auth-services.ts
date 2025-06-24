@@ -23,3 +23,13 @@ export async function signup(name: string, email: string, password: string) {
     };
   }
 }
+
+export async function updateUsername(username: string) {
+  try {
+    const response = await privateApi.put("/users/updateUserName", { username });
+    return response.data;
+  } catch (error: any) {
+    console.error("Erro ao atualizar username:", error);
+    throw new Error(error.response?.data?.error || "Erro ao comunicar com o servidor");
+  }
+}
