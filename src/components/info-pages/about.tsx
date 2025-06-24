@@ -1,12 +1,18 @@
-import { Container, Typography, Box, Button } from "@mui/material";
+import { Container, Typography, Box, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./info.css";
 
 const About = () => {
+  const { user } = useAuth();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const navigate = useNavigate();
+
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -59,11 +65,31 @@ const About = () => {
           <Typography variant="h4" gutterBottom className="cta-title">
             <strong>Pronto para explorar os dados?</strong>
           </Typography>
-          <Link to="/dashboard" className="cta-link">
-            <Button variant="contained" color="primary" size="large" className="cta-button">
-              Aceder ao Dashboard
-            </Button>
-          </Link>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={() => {
+              if (user) {
+                navigate("/dashboard");
+              } else {
+                setDialogOpen(true);
+              }
+            }}
+          >
+            Aceder ao Dashboard
+          </Button>
+          <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+            <DialogTitle>Autenticação Necessária</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Para aceder ao dashboard, é necessário iniciar sessão ou criar uma conta.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setDialogOpen(false)}>Fechar</Button>
+            </DialogActions>
+          </Dialog>
         </Container>
       </Box>
     </>
