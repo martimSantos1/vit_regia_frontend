@@ -24,9 +24,9 @@ export async function signup(name: string, email: string, password: string) {
   }
 }
 
-export async function updateUsername(username: string) {
+export async function updateUsername(name: string) {
   try {
-    const response = await privateApi.put("/users/updateUserName", { username });
+    const response = await privateApi.patch("/users/update", { name });
     return response.data;
   } catch (error: any) {
     console.error("Erro ao atualizar username:", error);

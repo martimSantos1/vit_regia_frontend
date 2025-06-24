@@ -49,6 +49,7 @@ export default function Profile() {
         if (editing && user) {
             setLoading(true);
             try {
+                console.log('Username a enviar:', username)
                 const updatedUser = await updateUsername(username);
                 setUser({ ...user, name: updatedUser.name });
                 setSnackbar({ open: true, message: 'Username atualizado com sucesso.', severity: 'success' });
