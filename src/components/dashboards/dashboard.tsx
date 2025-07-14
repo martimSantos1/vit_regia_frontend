@@ -142,7 +142,9 @@ export default function Dashboard() {
             <Typography variant="h4" gutterBottom>
                 Dados em Tempo Real
             </Typography>
-
+            <Typography variant="body1" color="textSecondary" mb={2}>
+                Selecione um cartão para ver mais detalhes sobre o respetivo parâmetro de qualidade.
+            </Typography>
             <Box display="flex" flexDirection={{ xs: "column", sm: "row" }} gap={1} justifyContent="center" mb={3}>
                 <SensorCard
                     label="Temperatura"

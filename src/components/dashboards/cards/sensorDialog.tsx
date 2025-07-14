@@ -12,7 +12,7 @@ export const SensorDialog = ({ open, onClose, sensorLabel, explanation }: Sensor
         <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
             <DialogTitle>{sensorLabel}</DialogTitle>
             <DialogContent>
-                <Typography variant="body1">{explanation}</Typography>
+                <Typography variant="body1" style={{ whiteSpace: 'pre-line', textAlign: 'justify' }}>{explanation}</Typography>
             </DialogContent>
         </Dialog>
     );
