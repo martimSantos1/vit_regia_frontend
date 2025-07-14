@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getMessaging, isSupported } from "firebase/messaging";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBywY7bzdz_BsC8me-pdQqMLIlB_cwfwBU",
+  apiKey: "fireBaseAPIKey",
   authDomain: "vitoria-regia-gecad.firebaseapp.com",
   projectId: "vitoria-regia-gecad",
   storageBucket: "vitoria-regia-gecad.firebasestorage.app",
-  messagingSenderId: "166624094379",
-  appId: "1:166624094379:web:32288ffbc707dd0dc26fee",
-  measurementId: "G-TMQJWLNF35"
+  messagingSenderId: "senderID",
+  appId: "appID",
+  measurementId: "measurementID"
 };
 
 // Inicializar Firebase
