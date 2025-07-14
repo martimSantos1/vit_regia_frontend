@@ -1,39 +1,31 @@
 import { SensorType } from "../components/dashboards/dashboard-types";
+import { getThresholds } from "../services/data-services";
 
-export function getProgressColorPerType(tipo: SensorType, valor: number): string {
-    switch (tipo) {
-        case "temperature":
-            if (valor < 10) return "#2196f3"; // muito frio
-            if (valor < 25) return "#4caf50"; // ideal
-            if (valor < 35) return "#ff9800"; // quente
-            return "#f44336"; // muito quente
+type Threshold = {
+  goodMin: number;
+  goodMax: number;
+  alarmingMin: number;
+  alarmingMax: number;
+};
 
-        case "ph":
-            if (valor < 5.5) return "#f44336";
-            if (valor < 6.5) return "#ff9800";
-            if (valor <= 8.5) return "#4caf50";
-            if (valor <= 9.5) return "#ff9800";
-            return "#f44336";
+type Thresholds = Record<SensorType, Threshold>;
 
-        case "tds":
-            if (valor < 300) return "#4caf50";
-            if (valor < 600) return "#ffeb3b";
-            if (valor < 1000) return "#ff9800";
-            return "#f44336";
+export async function getProgressColorPerType(tipo: SensorType, valor: number): Promise<string> {
+  try {
+    const response = await getThresholds();
+    const thresholds = response.thresholds as Thresholds;
+    const t = thresholds?.[tipo];
 
-        case "conductivity":
-            if (valor < 500) return "#4caf50";
-            if (valor < 1000) return "#ff9800";
-            return "#f44336";
-
-        case "dissolvedOxygen":
-            if (valor < 3) return "#f44336";
-            if (valor < 5) return "#ff9800";
-            if (valor < 10) return "#4caf50";
-            return "#2196f3";
-        case "turbidity":
-            return valor > 70 ? "#d32f2f" : valor > 40 ? "#fbc02d" : "#388e3c";
-        default:
-            return "#4caf50";
+    if (!t) {
+      console.warn(`Limites não definidos para o tipo "${tipo}"`);
+      return "#d3d3d3";
     }
+
+    if (valor >= t.goodMin && valor <= t.goodMax) return "#4caf50"; // 🟢
+    if (valor >= t.alarmingMin && valor <= t.alarmingMax) return "#ff9800"; // 🟠
+    return "#f44336"; // 🔴
+  } catch (error) {
+    console.error("Erro ao obter thresholds:", error);
+    return "#d3d3d3";
+  }
 }

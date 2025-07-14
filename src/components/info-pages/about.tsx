@@ -47,10 +47,13 @@ const About = () => {
           </Typography>
           <Slider {...sliderSettings}>
             <div className="slide-item">
-              <img src="src/assets/esp32.jpg" alt="Dispositivo flutuante" className="slide-image" />
+              <img src="src/assets/esp32.jpeg" alt="Dispositivo flutuante" className="slide-image" />
             </div>
             <div className="slide-item">
-              <img src="src/assets/dashboard.png" alt="Dashboard" className="slide-image" />
+              <img src="src/assets/dashboard.jpeg" alt="Dashboard" className="slide-image" />
+            </div>
+            <div className="slide-item">
+              <img src="src/assets/dashboard2.jpeg" alt="Dashboard2" className="slide-image" />
             </div>
             <div className="slide-item">
               <img src="src/assets/catalao.jpg" alt="Lago do Catalão" className="slide-image" />

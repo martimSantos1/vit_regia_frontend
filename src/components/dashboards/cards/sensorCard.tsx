@@ -59,7 +59,32 @@ export const SensorCard: React.FC<SensorCardProps> = ({
 
     const progress = Math.min(animatedValue / maxValue, 1);
     const strokeDashoffset = circumference * (1 - progress);
-    const color = getProgressColorPerType(sensorType, animatedValue);
+
+    const [color, setColor] = useState("#d3d3d3"); // cinzento padrão
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const calcularCor = async () => {
+            if (isNaN(animatedValue)) return;
+            const cor = await getProgressColorPerType(sensorType, animatedValue);
+            if (isMounted) setColor(cor);
+        };
+
+        calcularCor();
+
+        return () => {
+            isMounted = false; // evita atualizações após desmontagem
+        };
+    }, [sensorType, animatedValue]);
+
+
+    const formatValue = (value: number, type: SensorType): string => {
+        if (type === "tds") {
+            return value.toFixed(0); // Inteiro
+        }
+        return value.toFixed(2); // Duas casas decimais
+    };
 
     return (
         <Box
@@ -125,11 +150,11 @@ export const SensorCard: React.FC<SensorCardProps> = ({
                     }}
                 >
                     <Typography variant="h6">
-                        {Math.round(animatedValue)}
+                        {formatValue(animatedValue, sensorType)}
                         {unit && <span style={{ fontSize: "0.75rem" }}> {unit}</span>}
                     </Typography>
                 </Box>
             </Box>
         </Box>
     );
-};
+}

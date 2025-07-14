@@ -20,6 +20,38 @@ import Profile from "./components/user/profile";
 import PrivacyPolicy from "./components/info-pages/privacy-policy";
 import TermsAndConditions from "./components/info-pages/terms";
 
+// Firebase
+import { messaging } from "./firebase";
+import { getToken } from "firebase/messaging";
+
+async function registerFirebaseMessaging() {
+  const notificationsEnabled = localStorage.getItem("notificationsEnabled") === "true";
+
+  if (!notificationsEnabled || Notification.permission !== "granted") {
+    return;
+  }
+
+  try {
+    const registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
+
+    const token = await getToken(messaging, {
+      vapidKey: "<INSERE_AQUI_A_TUA_VAPID_KEY_PUBLICA>",
+      serviceWorkerRegistration: registration
+    });
+
+    if (token) {
+      console.log("✅ Token FCM obtido no main.tsx:", token);
+      // Aqui podes enviar o token para o backend, se necessário
+    } else {
+      console.warn("⚠️ Token FCM não foi gerado");
+    }
+  } catch (error) {
+    console.error("❌ Erro ao configurar Firebase Messaging:", error);
+  }
+}
+
+registerFirebaseMessaging();
+
 export default function App() {
   return (
     <AuthProvider>
@@ -37,9 +69,9 @@ export default function App() {
               <Route path="/faqs" element={<FAQS />} />
               <Route path="/license" element={<License />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="/terms" element={<TermsAndConditions />} />              
+              <Route path="/terms" element={<TermsAndConditions />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/profile" element={<Profile/>}/>
+              <Route path="/profile" element={<Profile />} />
             </Route>
           </Routes>
         </ThemeProvider>

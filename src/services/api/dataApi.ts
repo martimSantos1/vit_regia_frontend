@@ -5,7 +5,7 @@ const dataApi = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: false, // sem cookies (apenas chamadas públicas)
+  withCredentials: false,
 });
 
 export default dataApi;

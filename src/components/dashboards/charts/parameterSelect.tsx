@@ -56,7 +56,6 @@ export const ParameterSelect: React.FC<Props> = ({
                     <MenuItem value="temperature">Temperatura</MenuItem>
                     <MenuItem value="ph">pH</MenuItem>
                     <MenuItem value="tds">TDS</MenuItem>
-                    <MenuItem value="conductivity">Condutividade</MenuItem>
                     <MenuItem value="dissolvedOxygen">Oxigénio Dissolvido</MenuItem>
                     <MenuItem value="turbidity">Turbidez</MenuItem>
                 </Select>

@@ -15,6 +15,7 @@
     "@mui/icons-material": "^6.4.7",
     "@mui/material": "^6.4.7",
     "axios": "^1.9.0",
+    "firebase": "^11.9.1",
     "flowbite-react": "^0.10.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.523.0",

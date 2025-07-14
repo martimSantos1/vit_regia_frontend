@@ -45,14 +45,6 @@ export default function ExplanationSection() {
                 </Typography>
 
                 <Typography variant="h6" component="div" sx={{ fontWeight: "bold", mt: 2 }}>
-                    ⚡ Condutividade Elétrica
-                </Typography>
-                <Typography paragraph sx={{ textAlign: "justify" }}>
-                    Relaciona-se com o TDS: quanto mais sais dissolvidos, maior a condutividade. Para águas naturais, valores até <strong>1000 µS/cm</strong> são aceitáveis.
-                    Para usos como irrigação e pesca, recomenda-se <strong>entre 100 e 1500 µS/cm</strong>.
-                </Typography>
-
-                <Typography variant="h6" component="div" sx={{ fontWeight: "bold", mt: 2 }}>
                     🫧 Oxigénio Dissolvido
                 </Typography>
                 <Typography paragraph sx={{ textAlign: "justify" }}>

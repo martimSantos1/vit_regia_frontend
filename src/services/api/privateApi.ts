@@ -27,7 +27,6 @@ privateApi.interceptors.response.use(
         return privateApi(originalRequest);
       } catch (refreshError) {
         console.error("Erro ao tentar renovar sessão:", refreshError);
-        // Opcional: logout automático se refresh falhar
       }
     }
 

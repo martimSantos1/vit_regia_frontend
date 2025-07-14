@@ -2,12 +2,18 @@ import { createContext, useContext, useEffect, useState } from "react";
 import privateApi from "../services/api/privateApi";
 
 // Interface que define a estrutura de um utilizador autenticado
+interface Role {
+  id: number;
+  name: string;
+}
+
 interface User {
   id: number;
   name: string;
   email: string;
-  roleId: number;
+  role: Role;
 }
+
 
 // Interface do contexto de autenticação, descrevendo o que será exposto aos componentes filhos
 interface AuthContextType {
@@ -31,7 +37,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         const res = await privateApi.get("/users/me");
         console.log("Dados do utilizador:", res.data); // Log para depuração
-        setUser(res.data.user); // já vem em JSON
+        const rawUser = res.data.user;
+        const normalizedUser: User = {
+          id: rawUser.id,
+          name: rawUser.name,
+          email: rawUser.email,
+          role: {
+            id: rawUser.role.id,
+            name: rawUser.role.name,
+          },
+        };
+        setUser(normalizedUser);
       } catch (err) {
         console.error("Erro ao verificar sessão:", err);
       } finally {

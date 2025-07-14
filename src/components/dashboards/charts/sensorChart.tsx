@@ -11,6 +11,13 @@ type SensorChartProps = {
 };
 
 export const SensorChart: React.FC<SensorChartProps> = ({ data, selectedParameter }) => {
+    const formatChartTooltip = (value: number, name: string) => {
+        if (name.toLowerCase() === "tds") {
+            return [value.toFixed(0), LABELS["tds"]];
+        }
+        return [value.toFixed(2), LABELS[name as SensorType] ?? name];
+    };    
+
     return (
         <Box mt={4}>
             <Typography variant="h5" gutterBottom>
@@ -22,7 +29,7 @@ export const SensorChart: React.FC<SensorChartProps> = ({ data, selectedParamete
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="timestamp" tickFormatter={(v) => new Date(v).toLocaleTimeString()} />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip formatter={formatChartTooltip} />
                     <Legend />
 
                     {selectedParameter === "all"
